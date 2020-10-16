@@ -48,12 +48,7 @@
 					{new Date(GetDate(dt).year, GetDate(dt).month, 0).getDate()}
 				</p>
 				<div class="percent">
-					{
-						parseInt(
-							(fill ? fill.split(',').length : 0) * 100 /
-							new Date(GetDate(dt).year, GetDate(dt).month, 0).getDate()
-						)
-					}%
+					{parseInt(((fill ? fill.split(',').length : 0) * 100) / new Date(GetDate(dt).year, GetDate(dt).month, 0).getDate())}%
 				</div>
 			</div>
 		{/each}

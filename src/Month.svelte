@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Day from './Day.svelte';
+	import Day from "./Day.svelte";
 
 	export let month = 10;
 	export let year = 2020;
@@ -53,7 +53,7 @@
 
 	<div id="tracker">
 		{#each [...Array(dayCount).keys()] as day}
-			<Day bind:fill { day } />
+			<Day bind:fill {day} />
 		{/each}
 	</div>
 </main>
@@ -63,6 +63,7 @@
 		height: 100vh;
 		--border-color: #ddd;
 	}
+
 	header {
 		height: 12vh;
 		border-bottom: 1px solid var(--border-color);
@@ -95,6 +96,7 @@
 			}
 		}
 	}
+
 	#tracker {
 		width: 100vw;
 		height: 88vh;
