@@ -1,4 +1,6 @@
 <script lang="ts">
+	import Day from './Day.svelte';
+
 	export let month = 10;
 	export let year = 2020;
 	export let shownMonth = [];
@@ -41,21 +43,6 @@
 
 		pressedCTRL = false;
 	};
-
-	const ToggleDone = (key) => {
-		let day = (key + 1).toString();
-		let arr = fill.split(",") as Array<string>;
-
-		if (arr.includes(day)) {
-			const index = arr.indexOf(day);
-			delete arr[index];
-		} else {
-			arr.push(day);
-		}
-
-		arr = arr.filter((x) => !!x); // Filter Falsy Values
-		fill = arr.join(",");
-	};
 </script>
 
 <main>
@@ -66,13 +53,7 @@
 
 	<div id="tracker">
 		{#each [...Array(dayCount).keys()] as day}
-			<div
-				class="day {fill
-					.split(',')
-					.includes((day + 1).toString()) ? 'done' : ''}"
-				on:click={() => ToggleDone(day)}>
-				{day + 1}
-			</div>
+			<Day bind:fill { day } />
 		{/each}
 	</div>
 </main>
@@ -125,72 +106,9 @@
 		}
 		@media (max-width: 500px) {
 			grid-template-columns: 1fr 1fr;
-
-			.day { padding: 20px !important }
 		}
 		@media (max-width: 300px) {
 			grid-template-columns: 1fr;
-		}
-
-		.day {
-			width: 100%;
-			padding: 10px;
-			background-color: white;
-			box-shadow: inset 0 0 4px #eee;
-			font-weight: bold;
-			border: 1px solid var(--border-color);
-			margin: -1px;
-			opacity: 0.8;
-			position: relative;
-			cursor: pointer;
-
-			&:not(.done):hover {
-				z-index: 1;
-				box-shadow: inset 0 0 8px #d5d5d5;
-			}
-
-			&::before,
-			&::after {
-				width: 0;
-				height: 0;
-				border-radius: 100px;
-				background-color: black;
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				transform: translate(-50%, -50%) rotate(45deg);
-				display: block;
-				background-color: red;
-				transition: all 0.3s ease;
-				content: "";
-			}
-
-			&.done {
-				z-index: 1;
-
-				&:hover {
-					box-shadow: inset 0 0 8px #ffaaaa;
-				}
-
-				&::before {
-					width: 75px;
-					height: 10px;
-
-					@media (max-width: 600px) {
-						width: 45px;
-						height: 7px;
-					}
-				}
-				&::after {
-					width: 10px;
-					height: 75px;
-
-					@media (max-width: 600px) {
-						width: 7px;
-						height: 45px;
-					}
-				}
-			}
 		}
 	}
 </style>
