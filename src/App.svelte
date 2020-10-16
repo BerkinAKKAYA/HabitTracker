@@ -34,7 +34,6 @@
 		year={shownMonth[1]} />
 {:else}
 	<h1>Habit Tracker</h1>
-	<p class="credit">by Berkin AKKAYA</p>
 	<div id="months">
 		{#each Object.entries(database) as [dt, fill]}
 			<div
@@ -64,7 +63,7 @@
 
 <style lang="scss">
 	h1 {
-		margin-top: 100px;
+		margin: 100px 0 75px 0;
 	}
 	:global(h1) {
 		color: #333;
@@ -75,14 +74,11 @@
 			width: 80%;
 			height: 3px;
 			margin-left: 10%;
+			margin-top: 10px;
 			background-color: black;
 			transform: rotate(-1deg);
 			opacity: 0.7;
 		}
-	}
-	p.credit {
-		margin: 20px 0 50px 0;
-		opacity: 0.4;
 	}
 	#months {
 		width: 80%;

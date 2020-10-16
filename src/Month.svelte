@@ -22,6 +22,8 @@
 	];
 	let pressedCTRL = false;
 
+	// KEY BINDINGS
+	// ESC or Backspace for going back, CTRL+S for saving
 	document.onkeydown = (e) => {
 		e.key.toLowerCase() === "escape" && Hide();
 		e.key.toLowerCase() === "backspace" && Hide();
@@ -33,9 +35,11 @@
 		}
 	};
 	document.onkeyup = (e) => {
-		if (e.key.toLowerCase() === "s") {
+		if (pressedCTRL && e.key.toLowerCase() === "s") {
 			alert("TODO: Save On CTRL+S");
 		}
+
+		pressedCTRL = false;
 	};
 
 	const ToggleDone = (key) => {
@@ -81,9 +85,14 @@
 	header {
 		height: 12vh;
 		border-bottom: 1px solid var(--border-color);
-		display: grid;
-		place-items: center;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 		position: relative;
+
+		@media (max-width: 500px) {
+			justify-content: space-around;
+		}
 
 		h1::after {
 			width: 100%;
@@ -91,7 +100,10 @@
 		}
 
 		span {
-			position: absolute;
+			@media (min-width: 500px) {
+				position: absolute;
+			}
+
 			right: 50px;
 			font-size: 2em;
 			opacity: 0.5;
@@ -107,13 +119,21 @@
 		height: 88vh;
 		display: grid;
 		grid-template-columns: repeat(7, 1fr);
-		padding: 0 1px 1px 1px;
 
 		@media (max-width: 1000px) {
 			grid-template-columns: repeat(5, 1fr);
 		}
+		@media (max-width: 500px) {
+			grid-template-columns: 1fr 1fr;
+
+			.day { padding: 20px !important }
+		}
+		@media (max-width: 300px) {
+			grid-template-columns: 1fr;
+		}
 
 		.day {
+			width: 100%;
 			padding: 10px;
 			background-color: white;
 			box-shadow: inset 0 0 4px #eee;
@@ -155,10 +175,20 @@
 				&::before {
 					width: 75px;
 					height: 10px;
+
+					@media (max-width: 600px) {
+						width: 45px;
+						height: 7px;
+					}
 				}
 				&::after {
 					width: 10px;
 					height: 75px;
+
+					@media (max-width: 600px) {
+						width: 7px;
+						height: 45px;
+					}
 				}
 			}
 		}
