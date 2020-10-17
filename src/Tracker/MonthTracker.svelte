@@ -1,27 +1,13 @@
 <script lang="ts">
 	import Day from "./Day.svelte";
 
-	export let month = 10;
-	export let year = 2020;
-	export let shownMonth = [];
+	export let month = 1;
+	export let year = 2000;
 	export let fill = "";
+	export let habit = "Workout";
 
-	const Hide = () => (shownMonth = []);
+	const Hide = () => alert("Hide!");
 	const dayCount = new Date(year, month, 0).getDate();
-	const MonthNames = [
-		"January",
-		"February",
-		"March",
-		"April",
-		"May",
-		"June",
-		"July",
-		"August",
-		"September",
-		"October",
-		"November",
-		"December",
-	];
 	let pressedCTRL = false;
 
 	// KEY BINDINGS
@@ -47,7 +33,8 @@
 
 <main>
 	<header>
-		<h1>{MonthNames[month - 1]}</h1>
+		<p>{MonthNames[month - 1]} {year}</p>
+		<h1>{habit}</h1>
 		<span on:click={Hide}>X</span>
 	</header>
 
@@ -69,28 +56,48 @@
 		border-bottom: 1px solid var(--border-color);
 		display: flex;
 		align-items: center;
-		justify-content: center;
+		justify-content: space-around;
 		position: relative;
+		text-align: center;
 
-		@media (max-width: 500px) {
-			justify-content: space-around;
+		@media (min-width: 600px) {
+			justify-content: center;
+		}
+
+		p {
+			position: absolute;
+			left: 100px;
+			font-size: 1.5em;
+			opacity: 0.5;
+
+			@media (max-width: 800px) {
+				left: 50px;
+			}
+			@media (max-width: 600px) {
+				display: none;
+			}
 		}
 
 		h1::after {
 			width: 100%;
 			margin: 6px 0 0 0;
+			position: relative;
+			left: 50%;
+			transform: translateX(-50%) rotate(-2deg);
 		}
 
 		span {
-			@media (min-width: 500px) {
-				position: absolute;
-			}
-
-			right: 50px;
+			right: 100px;
 			font-size: 2em;
 			opacity: 0.5;
 			cursor: pointer;
 
+			@media (min-width: 600px) {
+				position: absolute;
+			}
+			@media (max-width: 800px) {
+				right: 50px;
+			}
 			&:hover {
 				opacity: 1;
 			}
