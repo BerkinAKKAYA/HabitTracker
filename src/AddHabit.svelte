@@ -1,4 +1,6 @@
 <script lang="ts">
+	export let database = {};
+
 	let focused = false;
 	let typedHabit = "";
 
@@ -16,9 +18,21 @@
 			const sure = confirm('Start the habit "' + typedHabit + '" ?');
 
 			if (sure) {
-				alert("TODO: Add " + typedHabit + " to the database.");
+				if (typedHabit in database) {
+					alert("Habit already exists!");
+				} else {
+					database[typedHabit] = {};
+					database[typedHabit][CurrentDate()] = [];
+				}
 			}
 		}
+	}
+
+	function CurrentDate() {
+		const today = new Date();
+		const month = today.getMonth() + 1;
+		const year = today.getFullYear();
+		return `${month}-${year}`;
 	}
 </script>
 
@@ -46,18 +60,32 @@
 			padding: 10px 15px;
 			font-size: 1.2em;
 			width: 100%;
+			color: #666;
+
+			&::placeholder {
+				color: #666 !important;
+			}
+			&:hover {
+				border-color: #aaa;
+			}
+			&:focus {
+				border-color: #666;
+				color: #000;
+			}
 		}
 		img {
 			position: absolute;
-			width: 30px;
-			height: 30px;
+			height: 75%;
 			right: 0;
-			top: 2px;
-			opacity: 0.5;
+			top: 50%;
+			transform: translateY(-50%);
+			border-radius: 100%;
+			background-color: white;
+			opacity: 0.7;
 			cursor: pointer;
 
 			&:hover {
-				opacity: 0.8;
+				opacity: 1;
 			}
 		}
 	}

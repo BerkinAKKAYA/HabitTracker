@@ -1,22 +1,20 @@
 <script lang="ts">
-	export let fill = "";
+	export let fill = [];
 	export let day = 0;
 
-	$: done = fill.split(",").includes((day + 1).toString());
+	$: done = fill.includes((day + 1).toString());
 
 	const ToggleDone = (key) => {
-		let arr = fill.split(",") as Array<string>; // "Fill" Array
 		const day = (key + 1).toString(); // Day Number instead of Index
-		const index = arr.indexOf(day);
+		const index = fill.indexOf(day);
 
 		if (index >= 0) {
-			arr[index] = "";
+			fill[index] = "";
 		} else {
-			arr.push(day);
+			fill.push(day);
 		}
 
-		arr = arr.filter((x) => !!x); // Filter Falsy Values
-		fill = arr.join(",");
+		fill = fill.filter((x) => !!x); // Filter Falsy Values
 	};
 </script>
 
@@ -65,7 +63,8 @@
 			z-index: 1;
 
 			&:hover {
-				box-shadow: inset 0 0 8px #ffaaaa;
+				box-shadow: inset 0 0 8px #faa;
+				border-color: rgba($color: #faa, $alpha: 0.5);
 			}
 
 			&::before {

@@ -1,54 +1,22 @@
 <script lang="ts">
 	import Day from "./Day.svelte";
 
-	export let month = 1;
-	export let year = 2000;
-	export let fill = "";
-	export let habit = "Workout";
+	export let shown = {};
+	export let fill = [];
 
-	const Hide = () => alert("Hide!");
-	const dayCount = new Date(year, month, 0).getDate();
-	const MonthNames = [
-		"January",
-		"February",
-		"March",
-		"April",
-		"May",
-		"June",
-		"July",
-		"August",
-		"September",
-		"October",
-		"November",
-		"December",
-	];
+	const Hide = () => (shown = {});
+	const dayCount = new Date(shown["year"], shown["month"], 0).getDate();
 
-	let pressedCTRL = false;
-	// KEY BINDINGS
-	// ESC or Backspace for going back, CTRL+S for saving
-	document.onkeydown = (e) => {
-		e.key.toLowerCase() === "escape" && Hide();
-		e.key.toLowerCase() === "backspace" && Hide();
-		e.key.toLowerCase() === "s" && e.preventDefault();
-
-		if (e.key === "Control") {
-			pressedCTRL = true;
-			e.preventDefault();
-		}
-	};
-	document.onkeyup = (e) => {
-		if (pressedCTRL && e.key.toLowerCase() === "s") {
-			alert("TODO: Save On CTRL+S");
-		}
-
-		pressedCTRL = false;
-	};
+	document.addEventListener("keydown", (e) => {
+		e.key === "Escape" && Hide();
+		e.key === "Backspace" && Hide();
+	});
 </script>
 
 <main>
 	<header>
-		<p>{MonthNames[month - 1]} {year}</p>
-		<h1>{habit}</h1>
+		<p>{MonthNames[shown['month'] - 1]} {shown['year']}</p>
+		<h1>{shown['habit']}</h1>
 		<span on:click={Hide}>X</span>
 	</header>
 

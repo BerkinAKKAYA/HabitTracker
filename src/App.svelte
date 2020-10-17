@@ -1,17 +1,12 @@
 <script lang="ts">
 	import AddHabit from "./AddHabit.svelte";
-
 	import HabitList from "./HabitList.svelte";
 	import MonthTracker from "./Tracker/MonthTracker.svelte";
 
 	let database = {
-		"Workout": {
+		Workout: {
 			"10-2020": [],
 			"11-2020": [],
-		},
-		"Don't Eat Sugar": {
-			"09-2020": [],
-			"10-2020": [],
 		},
 	};
 
@@ -23,12 +18,14 @@
 </script>
 
 {#if shown.habit}
-	<MonthTracker {...shown} />
+	<MonthTracker
+		bind:shown
+		bind:fill={database[shown.habit][`${shown.month}-${shown.year}`]} />
 {:else}
 	<h1>Habit Tracker</h1>
 
-	<AddHabit />
-	<HabitList />
+	<AddHabit bind:database />
+	<HabitList bind:database bind:shown />
 {/if}
 
 <style lang="scss">
