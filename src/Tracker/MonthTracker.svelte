@@ -8,8 +8,22 @@
 
 	const Hide = () => alert("Hide!");
 	const dayCount = new Date(year, month, 0).getDate();
-	let pressedCTRL = false;
+	const MonthNames = [
+		"January",
+		"February",
+		"March",
+		"April",
+		"May",
+		"June",
+		"July",
+		"August",
+		"September",
+		"October",
+		"November",
+		"December",
+	];
 
+	let pressedCTRL = false;
 	// KEY BINDINGS
 	// ESC or Backspace for going back, CTRL+S for saving
 	document.onkeydown = (e) => {
