@@ -2,6 +2,16 @@
 	import AddHabit from "./AddHabit.svelte";
 	import HabitList from "./HabitList.svelte";
 	import MonthTracker from "./Tracker/MonthTracker.svelte";
+	import Today from "./Today.svelte";
+
+	let currentDate = "";
+
+	(function () {
+		const today = new Date();
+		const month = today.getMonth() + 1;
+		const year = today.getFullYear();
+		currentDate = `${month}-${year}`;
+	})();
 
 	let database = {
 		Workout: {
@@ -24,7 +34,8 @@
 {:else}
 	<h1>Habit Tracker</h1>
 
-	<AddHabit bind:database />
+	<AddHabit bind:database {currentDate} />
+	<Today bind:database {currentDate} />
 	<HabitList bind:database bind:shown />
 {/if}
 

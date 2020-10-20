@@ -1,5 +1,6 @@
 <script lang="ts">
 	export let database = {};
+	export let currentDate = "01-2000";
 
 	let focused = false;
 	let typedHabit = "";
@@ -22,17 +23,10 @@
 					alert("Habit already exists!");
 				} else {
 					database[typedHabit] = {};
-					database[typedHabit][CurrentDate()] = [];
+					database[typedHabit][currentDate] = [];
 				}
 			}
 		}
-	}
-
-	function CurrentDate() {
-		const today = new Date();
-		const month = today.getMonth() + 1;
-		const year = today.getFullYear();
-		return `${month}-${year}`;
 	}
 </script>
 
