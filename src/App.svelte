@@ -35,14 +35,35 @@
 		bind:shown
 		bind:fill={database[shown.habit][`${shown.month}-${shown.year}`]} />
 {:else}
-	<h1>Habit Tracker</h1>
+	<main>
+		<h1>Habit Tracker</h1>
 
-	<AddHabit bind:database {currentDate} />
-	<Today bind:database {currentDate} />
-	<HabitList bind:database bind:shown />
+		<AddHabit bind:database {currentDate} />
+		<Today bind:database {currentDate} />
+		<HabitList bind:database bind:shown />
+	</main>
 {/if}
 
 <style lang="scss">
+	main {
+		animation: Reveal 1s;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		overflow: hidden;
+		padding-bottom: 75px;
+	}
+	@keyframes Reveal {
+		from {
+			opacity: 0;
+			height: 0;
+		}
+		to {
+			opacity: 1;
+			height: 100vh;
+		}
+	}
+
 	h1 {
 		margin: 75px 0;
 	}

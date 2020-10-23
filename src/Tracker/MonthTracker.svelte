@@ -29,8 +29,23 @@
 
 <style lang="scss">
 	main {
-		height: 100vh;
 		--border-color: #ddd;
+
+		animation: Reveal 0.5s ease;
+		animation-fill-mode: forwards;
+		align-self: flex-start !important;
+		overflow: hidden;
+	}
+
+	@keyframes Reveal {
+		from {
+			width: 0;
+			opacity: 0;
+		}
+		to {
+			width: 100vw;
+			opacity: 1;
+		}
 	}
 
 	header {
