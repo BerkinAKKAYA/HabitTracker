@@ -41,6 +41,11 @@
 		<AddHabit bind:database {currentDate} />
 		<Today bind:database {currentDate} />
 		<HabitList bind:database bind:shown />
+
+		<footer>
+			<span>Created By</span>
+			<a href="https://berkinakkaya.github.io">Berkin AKKAYA</a>
+		</footer>
 	</main>
 {/if}
 
@@ -51,7 +56,6 @@
 		flex-direction: column;
 		align-items: center;
 		overflow: hidden;
-		padding-bottom: 75px;
 	}
 	@keyframes Reveal {
 		from {
@@ -80,6 +84,38 @@
 			background-color: black;
 			transform: rotate(-1deg);
 			opacity: 0.7;
+		}
+	}
+
+	footer {
+		margin: 75px 0;
+
+		span {
+			color: #999;
+		}
+		a {
+			text-decoration: none;
+			color: #005;
+			display: inline-block;
+
+			&::after {
+				content: "";
+				display: block;
+				width: 0;
+				height: 1px;
+				background-color: #009;
+				margin-top: 3px;
+				transition: all 0.3s;
+				position: relative;
+				left: 50%;
+				transform: translateX(-50%);
+			}
+			&:hover {
+				color: #009;
+			}
+			&:hover::after {
+				width: 100%;
+			}
 		}
 	}
 </style>
