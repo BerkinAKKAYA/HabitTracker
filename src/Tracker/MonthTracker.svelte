@@ -103,7 +103,7 @@
 
 	#tracker {
 		width: 100vw;
-		height: 88vh;
+		min-height: 88vh;
 		display: grid;
 		grid-template-columns: repeat(7, 1fr);
 

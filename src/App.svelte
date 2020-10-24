@@ -17,9 +17,7 @@
 
 	let database = {};
 	$: if (loggedIn && Object.keys(database).length > 0) {
-		UpdateDatabase(loggedIn, database);
-
-		console.log(database);
+		UpdateDatabase(database);
 	}
 
 	let shown = {
@@ -60,14 +58,14 @@
 {/if}
 
 {#if loggedIn}
-	<span id="logout" on:click={Logout}>Logout</span>
-
 	{#if shown.habit}
 		<MonthTracker
 			bind:shown
 			bind:fill={database[shown.habit][`${shown.month}-${shown.year}`]} />
 	{:else}
 		<main>
+			<span id="logout" on:click={Logout}>Logout</span>
+
 			<AddHabit bind:database {currentDate} uid={loggedIn} />
 			<Today bind:database {currentDate} />
 			<HabitList bind:database bind:shown />

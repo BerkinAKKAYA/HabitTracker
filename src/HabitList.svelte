@@ -22,12 +22,22 @@
 		shown["month"] = date.split("-")[0];
 		shown["year"] = date.split("-")[1];
 	}
+	
+	function Remove(habit) {
+		const sure = confirm("Remove " + habit + "?");
+
+		if (sure) {
+			delete database[habit];
+			database = database;
+			UpdateDatabase(database);
+		}
+	}
 </script>
 
 <main>
 	{#each Object.entries(database) as [habit, data]}
 		<div class="habit">
-			<h2>{habit}</h2>
+			<h2 on:click={() => { Remove(habit) }}>{habit}</h2>
 			<p class="months">
 				{#each Object.entries(data) as [date, fillArray]}
 					<p class="month" on:click={() => Show(habit, date)}>
@@ -44,6 +54,14 @@
 	main {
 		.habit {
 			text-align: center;
+
+		h2{
+			cursor: pointer;
+
+			&:hover {
+				color: #a00;
+			}
+		}
 
 			&:not(:nth-child(1)) {
 				margin-top: 50px;

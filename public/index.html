@@ -78,7 +78,12 @@
 			const realtimeDatabase = firebase.database();
 			const googleProvider = new firebase.auth.GoogleAuthProvider();
 
-			function UpdateDatabase(uid, obj) {
+			function UpdateDatabase(obj) {
+				const uid = auth.currentUser.uid;
+				if (!uid) {
+					return;
+				}
+
 				let dataToSend = JSON.parse(JSON.stringify(obj));
 
 				// Convert arrays to strings

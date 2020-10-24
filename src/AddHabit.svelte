@@ -39,7 +39,7 @@
 		on:blur={Blur}
 		maxlength="30"
 		bind:value={typedHabit} />
-	<img src="img/add.svg" alt="ADD" />
+	<img src="img/add.svg" alt="ADD" on:click={Submit} />
 </div>
 
 <style lang="scss">
