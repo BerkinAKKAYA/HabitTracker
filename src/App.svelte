@@ -16,8 +16,10 @@
 	})();
 
 	let database = {};
-	$: if (loggedIn) {
+	$: if (loggedIn && Object.keys(database).length > 0) {
 		UpdateDatabase(loggedIn, database);
+
+		console.log(database);
 	}
 
 	let shown = {
@@ -35,6 +37,15 @@
 			ref.once("value").then((ss) => {
 				const result = ss.val();
 				database = result || {};
+
+				// Convert arrays to strings
+				for (const habit of Object.keys(database)) {
+					for (const month of Object.keys(database[habit])) {
+						let data = database[habit][month];
+						data = data.split(",").filter((x) => !!x);
+						database[habit][month] = data;
+					}
+				}
 			});
 		}
 	});
