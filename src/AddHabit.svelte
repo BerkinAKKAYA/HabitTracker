@@ -1,6 +1,7 @@
 <script lang="ts">
 	export let database = {};
 	export let currentDate = "01-2000";
+	export let uid = "";
 
 	let focused = false;
 	let typedHabit = "";

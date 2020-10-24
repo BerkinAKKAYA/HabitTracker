@@ -1,9 +1,6 @@
 <script lang="ts">
 	export let loggedIn;
 
-	const auth = firebase.auth();
-	const googleProvider = new firebase.auth.GoogleAuthProvider();
-
 	const Anonymous = () => {
 		auth.signInAnonymously();
 	};

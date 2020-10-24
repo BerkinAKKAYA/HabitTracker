@@ -73,6 +73,25 @@
 
 			firebase.initializeApp(firebaseConfig);
 			firebase.analytics();
+
+			const auth = firebase.auth();
+			const realtimeDatabase = firebase.database();
+			const googleProvider = new firebase.auth.GoogleAuthProvider();
+
+			function UpdateDatabase(uid, obj) {
+				let dataToSend = JSON.parse(JSON.stringify(obj));
+
+				// Convert arrays to strings
+				for (const habit of Object.keys(dataToSend)) {
+					for (const month of Object.keys(dataToSend[habit])) {
+						let data = dataToSend[habit][month];
+						data = data.join(",");
+						dataToSend[habit][month] = data;
+					}
+				}
+
+				realtimeDatabase.ref(uid).set(dataToSend);
+			}
 		</script>
 	</head>
 	<body></body>

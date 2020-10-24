@@ -6,7 +6,7 @@
 	import SignInPanel from "./SignInPanel.svelte";
 
 	let currentDate = "";
-	let loggedIn = false;
+	let loggedIn = "";
 
 	(function () {
 		const today = new Date();
@@ -16,6 +16,9 @@
 	})();
 
 	let database = {};
+	$: if (loggedIn) {
+		UpdateDatabase(loggedIn, database);
+	}
 
 	let shown = {
 		habit: "",
@@ -23,23 +26,21 @@
 		year: 0,
 	};
 
-	const realtimeDB = firebase.database();
-
-	firebase.auth().onAuthStateChanged((result) => {
-		loggedIn = result ? result.uid : false;
+	auth.onAuthStateChanged((result) => {
+		loggedIn = result ? result.uid : "";
 
 		if (loggedIn) {
-			realtimeDB
-				.ref("users/" + loggedIn)
-				.once("value")
-				.then((ss) => {
-					console.log(ss);
-				});
+			const ref = realtimeDatabase.ref(loggedIn);
+
+			ref.once("value").then((ss) => {
+				const result = ss.val();
+				database = result || {};
+			});
 		}
 	});
 
 	function Logout() {
-		firebase.auth().signOut();
+		auth.signOut();
 	}
 </script>
 
@@ -56,7 +57,7 @@
 			bind:fill={database[shown.habit][`${shown.month}-${shown.year}`]} />
 	{:else}
 		<main>
-			<AddHabit bind:database {currentDate} />
+			<AddHabit bind:database {currentDate} uid={loggedIn} />
 			<Today bind:database {currentDate} />
 			<HabitList bind:database bind:shown />
 
